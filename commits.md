@@ -36,4 +36,3 @@
 - implement dotenv variables on `implements` module
 - implement encrypt password  on `create_user_controle` module
 - implement dotenv variables on `docker-compose` 
-- remove `___pycache___` in this project
