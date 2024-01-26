@@ -1,6 +1,7 @@
 from entities.user import User
 from usecases.user.create_user_use_case import CreateUserUseCase
 from providers.http_response import HttpResponse
+from services.encrypt import Encrypt
 
 
 class CreateUserController:
@@ -19,15 +20,17 @@ class CreateUserController:
             )
             return http_response
         try:
+            encrypt = Encrypt(http_request.password)
+            password_encrypt = encrypt.encrypt_data()
+
             http_request = User(
                 username=http_request.username,
                 email=http_request.email,
-                password=http_request.password,
+                password=password_encrypt,
                 lastname=http_request.lastname,
                 name=http_request.name
             )
             await self.create_user_use_case.execute(http_request)
-
             http_response = HttpResponse(
                 success=True,
                 message="User created successfully",
