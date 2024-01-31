@@ -18,7 +18,11 @@ class UserRepository(InterfaceUserRepository):
         return email_already_exists
 
     async def get_user_by_username(self, username: str):
-        pass
+        user_username = self.collection.find({"username": username})
+        username_already_exists = []
+        for user in user_username:
+            username_already_exists.append(user)
+        return username_already_exists
 
     async def get_user_by_id(self, user_id: any):
         pass
