@@ -1,7 +1,7 @@
 from entities.user import User
-from usecases.user.create_user_use_case import CreateUserUseCase
+from usecases.user.create_user.create_user_use_case import CreateUserUseCase
 from providers.http_response import HttpResponse
-from services.encrypt import Encrypt
+from services.encrypt.encrypt import Encrypt
 
 
 class CreateUserController:

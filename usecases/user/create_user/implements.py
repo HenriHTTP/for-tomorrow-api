@@ -1,7 +1,7 @@
-from usecases.user.create_user_controller import CreateUserController
+from usecases.user.create_user.create_user_controller import CreateUserController
 from repository.user_repository import UserRepository
-from usecases.user.create_user_use_case import CreateUserUseCase
-from services.database import Database
+from usecases.user.create_user.create_user_use_case import CreateUserUseCase
+from services.database.database import Database
 from dotenv import load_dotenv
 import os
 
