@@ -15,17 +15,18 @@ async def create_user_rote():
         username=request.json.get("username")
     )
     http_response = await create_user_controller.create_user(http_request)
-    if http_response.success:
+    try:
+        if http_response:
+            return jsonify({
+                "message": http_response.message,
+                "error": http_response.error,
+                "status": http_response.status_code,
+                "success": http_response.success
+            }), 200
+    except Exception as error:
         return jsonify({
-            "message": http_response.message,
-            "error": http_response.error,
-            "status": http_response.status_code,
-            "success": http_response.success
-        }), 200
-    else:
-        return jsonify({
-            "message": http_response.message,
-            "error": http_response.error,
-            "status": http_response.status_code,
-            "success": http_response.success
+            "message": "User not created",
+            "error": str(error),
+            "status": 500,
+            "success": False
         }), 500
