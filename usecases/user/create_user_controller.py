@@ -9,20 +9,9 @@ class CreateUserController:
         self.create_user_use_case = create_user_use_case
 
     async def create_user(self, http_request: User):
-        required_fields = ['name', 'lastname', 'username', 'email', 'password']
-        null_fields = [field for field in required_fields if getattr(http_request, field) is None]
-        if null_fields:
-            http_response = HttpResponse(
-                success=False,
-                message="User not created",
-                error=f"{', '.join(null_fields)} is required",
-                status_code=500
-            )
-            return http_response
         try:
-            encrypt = Encrypt(http_request.password)
-            password_encrypt = encrypt.encrypt_data()
-
+            self.__validate_required_fields(http_request)
+            password_encrypt = self.__encrypt_password(http_request)
             http_request = User(
                 username=http_request.username,
                 email=http_request.email,
@@ -30,12 +19,12 @@ class CreateUserController:
                 lastname=http_request.lastname,
                 name=http_request.name
             )
-            await self.create_user_use_case.execute(http_request)
+            create_user = await self.create_user_use_case.execute(http_request)
             http_response = HttpResponse(
-                success=True,
-                message="User created successfully",
-                error="no errors",
-                status_code=200
+                success=create_user["success"],
+                message=create_user["message"],
+                error=create_user["error"],
+                status_code=create_user["status_code"]
             )
             return http_response
         except Exception as error:
@@ -46,3 +35,15 @@ class CreateUserController:
                 status_code=500
             )
             return http_response
+
+    def __encrypt_password(self, user: User):
+        encrypt = Encrypt(user.password)
+        password_encrypt = encrypt.encrypt_data()
+        return password_encrypt
+
+    def __validate_required_fields(self, http_request: User):
+        required_fields = ['name', 'lastname', 'username', 'email', 'password']
+        null_fields = [field for field in required_fields if getattr(http_request, field) is None]
+        if null_fields:
+            error_message = f"{', '.join(null_fields)} is required"
+            raise ValueError(error_message)
