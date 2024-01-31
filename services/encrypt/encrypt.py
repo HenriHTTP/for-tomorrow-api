@@ -1,5 +1,5 @@
 from hashlib import sha256
-from services.interface_encrypt import InterfaceEncrypt
+from services.encrypt.interface_encrypt import InterfaceEncrypt
 
 
 class Encrypt(InterfaceEncrypt):
