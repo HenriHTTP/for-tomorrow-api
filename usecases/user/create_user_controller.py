@@ -45,5 +45,5 @@ class CreateUserController:
         required_fields = ['name', 'lastname', 'username', 'email', 'password']
         null_fields = [field for field in required_fields if getattr(http_request, field) is None]
         if null_fields:
-            error_message = f"{', '.join(null_fields)} is required"
+            error_message = f"{', '.join(null_fields)} is required, please check the details"
             raise ValueError(error_message)
