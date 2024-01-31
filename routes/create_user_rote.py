@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from usecases.user.implements import create_user_controller
+from usecases.user.create_user.implements import create_user_controller
 from entities.user import User
 
 create_user_app = Blueprint('create_user_app', __name__)
