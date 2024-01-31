@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from services.interface_database import InterfaceDatabase
+from services.database.interface_database import InterfaceDatabase
 
 
 class Database(InterfaceDatabase):
