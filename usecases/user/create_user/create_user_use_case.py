@@ -15,7 +15,7 @@ class CreateUserUseCase:
             return {
                 "message": "User created successfully",
                 "status_code": 200,
-                "error": "no error on user creation",
+                "error": None,
                 "success": True
             }
         except Exception as error:
