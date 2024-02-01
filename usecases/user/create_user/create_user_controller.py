@@ -2,6 +2,8 @@ from entities.user import User
 from usecases.user.create_user.create_user_use_case import CreateUserUseCase
 from providers.http_response import HttpResponse
 from services.encrypt.encrypt import Encrypt
+from services.email.email import Email
+from services.password.password import Password
 
 
 class CreateUserController:
@@ -11,15 +13,17 @@ class CreateUserController:
     async def create_user(self, http_request: User):
         try:
             self.__validate_required_fields(http_request)
+            self.__validate_email(http_request)
+            self.__validate_password(http_request)
             password_encrypt = self.__encrypt_password(http_request)
-            http_request = User(
+            user = User(
                 username=http_request.username,
                 email=http_request.email,
                 password=password_encrypt,
                 lastname=http_request.lastname,
                 name=http_request.name
             )
-            create_user = await self.create_user_use_case.execute(http_request)
+            create_user = await self.create_user_use_case.execute(user)
             http_response = HttpResponse(
                 success=create_user["success"],
                 message=create_user["message"],
@@ -47,3 +51,17 @@ class CreateUserController:
         if null_fields:
             error_message = f"{', '.join(null_fields)} is required, please check the details"
             raise ValueError(error_message)
+    def __validate_email(self, http_request: User):
+        email = Email(http_request.email)
+        if not email.is_valid():
+            error_message = f"{http_request.email} is not a valid email, please check the details"
+            raise ValueError(error_message)
+
+    def __validate_password(self, http_request: User):
+        password = http_request.password
+        validate_password = Password(password)
+        if not validate_password.is_valid_password():
+            error_message = ('invalid password, the password must not contain spaces, '
+                             'must contain digits, uppercase and lowercase letters')
+            raise ValueError(error_message)
+
