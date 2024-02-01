@@ -2,8 +2,7 @@ from entities.user import User
 from usecases.user.create_user.create_user_use_case import CreateUserUseCase
 from providers.http_response import HttpResponse
 from services.encrypt.encrypt import Encrypt
-from services.email.email import Email
-from services.password.password import Password
+from utils.validation.validation import Validation
 
 
 class CreateUserController:
@@ -12,9 +11,9 @@ class CreateUserController:
 
     async def create_user(self, http_request: User):
         try:
-            self.__validate_required_fields(http_request)
-            self.__validate_email(http_request)
-            self.__validate_password(http_request)
+            Validation.validate_required_fields(http_request)
+            Validation.validate_email(http_request)
+            Validation.validate_password(http_request)
             password_encrypt = self.__encrypt_password(http_request)
             user = User(
                 username=http_request.username,
@@ -44,24 +43,4 @@ class CreateUserController:
         encrypt = Encrypt(user.password)
         password_encrypt = encrypt.encrypt_data()
         return password_encrypt
-
-    def __validate_required_fields(self, http_request: User):
-        required_fields = ['name', 'lastname', 'username', 'email', 'password']
-        null_fields = [field for field in required_fields if getattr(http_request, field) is None]
-        if null_fields:
-            error_message = f"{', '.join(null_fields)} is required, please check the details"
-            raise ValueError(error_message)
-    def __validate_email(self, http_request: User):
-        email = Email(http_request.email)
-        if not email.is_valid():
-            error_message = f"{http_request.email} is not a valid email, please check the details"
-            raise ValueError(error_message)
-
-    def __validate_password(self, http_request: User):
-        password = http_request.password
-        validate_password = Password(password)
-        if not validate_password.is_valid_password():
-            error_message = ('invalid password, the password must not contain spaces, '
-                             'must contain digits, uppercase and lowercase letters')
-            raise ValueError(error_message)
 
