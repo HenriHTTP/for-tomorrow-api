@@ -20,6 +20,6 @@ class Password(InterfacePassword):
             .digits()
             .has()
             .no()
-            .digits())
+            .spaces())
         is_valid = password_valid_shape.validate(self.password)
         return is_valid
