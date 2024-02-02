@@ -11,6 +11,7 @@ class Encrypt(InterfaceEncrypt):
         return self.data
 
     def validate_data(self, data: str):
-        if sha256(data.encode()).hexdigest() == self.data:
+        encrypted_data = sha256(self.data.encode()).hexdigest()
+        if data == encrypted_data:
             return True
         return False
