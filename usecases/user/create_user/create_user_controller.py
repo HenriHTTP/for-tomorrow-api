@@ -7,11 +7,12 @@ from utils.validation.validation import Validation
 
 class CreateUserController:
     def __init__(self, create_user_use_case: CreateUserUseCase):
-        self.create_user_use_case = create_user_use_case
+        self.__create_user_use_case = create_user_use_case
 
     async def create_user(self, http_request: User):
+        required_fields = ['name', 'lastname', 'username', 'email', 'password']
         try:
-            Validation.validate_required_fields(http_request)
+            Validation.validate_required_fields(required_fields,http_request)
             Validation.validate_email(http_request)
             Validation.validate_password(http_request)
             password_encrypt = self.__encrypt_password(http_request)
@@ -22,7 +23,7 @@ class CreateUserController:
                 lastname=http_request.lastname,
                 name=http_request.name
             )
-            create_user = await self.create_user_use_case.execute(user)
+            create_user = await self.__create_user_use_case.execute(user)
             http_response = HttpResponse(
                 success=create_user["success"],
                 message=create_user["message"],
