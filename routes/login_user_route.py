@@ -14,7 +14,7 @@ async def login_user_route():
         password=request.json.get("password"),
         username=None
     )
-    http_response = await login_user_controller(http_request)
+    http_response = await login_user_controller.login_user(http_request)
     try:
         if http_response:
             return jsonify({
