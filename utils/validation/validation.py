@@ -6,7 +6,6 @@ from entities.user import User
 class Validation:
     @staticmethod
     def validate_required_fields(required_fields: list, http_request: User):
-        # required_fields = ['name', 'lastname', 'username', 'email', 'password']
         null_fields = [field for field in required_fields if getattr(http_request, field) is None]
         if null_fields:
             error_message = f"{', '.join(null_fields)} is required, please check the details"
