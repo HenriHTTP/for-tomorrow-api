@@ -21,7 +21,8 @@ async def login_user_route():
                 "message": http_response.message,
                 "error": http_response.error,
                 "status": http_response.status_code,
-                "success": http_response.success
+                "success": http_response.success,
+                "token": http_response.token
             }), 200
     except Exception as error:
         return jsonify({
