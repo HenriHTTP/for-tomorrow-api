@@ -29,7 +29,7 @@ class Token(InterfaceToken):
         return self.__token
 
     def get_token(self):
-        pass
+        return self.__token
 
     def validate_token(self, token):
         pass
