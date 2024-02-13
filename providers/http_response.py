@@ -7,3 +7,4 @@ class HttpResponse:
     message: str
     error: str
     status_code: int
+    token: str
