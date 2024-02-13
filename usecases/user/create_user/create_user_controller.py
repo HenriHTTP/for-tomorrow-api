@@ -28,7 +28,8 @@ class CreateUserController:
                 success=create_user["success"],
                 message=create_user["message"],
                 error=create_user["error"],
-                status_code=create_user["status_code"]
+                status_code=create_user["status_code"],
+                token = None
             )
             return http_response
         except Exception as error:
@@ -36,7 +37,8 @@ class CreateUserController:
                 success=False,
                 message="User not created",
                 error=str(error),
-                status_code=500
+                status_code=500,
+                token= None
             )
             return http_response
 

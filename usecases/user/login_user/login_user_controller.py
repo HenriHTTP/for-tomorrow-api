@@ -17,7 +17,8 @@ class LoginUserController:
                 success=login_user["success"],
                 message=login_user["message"],
                 error=login_user["error"],
-                status_code=login_user["status_code"]
+                status_code=login_user["status_code"],
+                token = None
             )
             return http_response
         except Exception as error:
@@ -25,6 +26,7 @@ class LoginUserController:
                 success=False,
                 message="User not created",
                 error=str(error),
-                status_code=500
+                status_code=500,
+                token=None
             )
             return http_response
