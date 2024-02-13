@@ -18,7 +18,7 @@ class LoginUserController:
                 message=login_user["message"],
                 error=login_user["error"],
                 status_code=login_user["status_code"],
-                token = None
+                token=login_user["token"]
             )
             return http_response
         except Exception as error:
