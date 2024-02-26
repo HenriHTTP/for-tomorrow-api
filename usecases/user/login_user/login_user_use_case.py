@@ -34,4 +34,4 @@ class LoginUserUseCase:
                 }
 
         except Exception as error:
-            raise error
+            raise ValueError(error)

@@ -22,11 +22,4 @@ class LoginUserController:
             )
             return http_response
         except Exception as error:
-            http_response = HttpResponse(
-                success=False,
-                message="User not created",
-                error=str(error),
-                status_code=500,
-                token=None
-            )
-            return http_response
+            raise ValueError(error)
