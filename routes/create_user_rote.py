@@ -14,8 +14,8 @@ async def create_user_rote():
         password=request.json.get("password"),
         username=request.json.get("username")
     )
-    http_response = await create_user_controller.create_user(http_request)
     try:
+        http_response = await create_user_controller.create_user(http_request)
         if http_response:
             return jsonify({
                 "message": http_response.message,
