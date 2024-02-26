@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Job:
-    Job_Title: str
-    Company: str
+    job_title: str
+    company: str
     about_company: str
     localization: str
     job_type: str
