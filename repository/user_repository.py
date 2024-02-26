@@ -27,7 +27,7 @@ class UserRepository(InterfaceUserRepository):
     async def get_user_by_id(self, user_id: any):
         pass
 
-    async def create_user(self, user: User):
+    async def insert_user(self, user: User):
         document = {
             "email": user.email,
             "username": user.username,
