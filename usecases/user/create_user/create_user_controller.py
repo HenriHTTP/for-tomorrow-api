@@ -12,7 +12,7 @@ class CreateUserController:
     async def create_user(self, http_request: User):
         required_fields = ['name', 'lastname', 'username', 'email', 'password']
         try:
-            Validation.validate_required_fields(required_fields,http_request)
+            Validation.validate_required_fields(required_fields, http_request)
             Validation.validate_email(http_request)
             Validation.validate_password(http_request)
             password_encrypt = self.__encrypt_password(http_request)
@@ -29,21 +29,13 @@ class CreateUserController:
                 message=create_user["message"],
                 error=create_user["error"],
                 status_code=create_user["status_code"],
-                token = None
+                token=str(None)
             )
             return http_response
         except Exception as error:
-            http_response = HttpResponse(
-                success=False,
-                message="User not created",
-                error=str(error),
-                status_code=500,
-                token= None
-            )
-            return http_response
+            raise ValueError(error)
 
     def __encrypt_password(self, user: User):
         encrypt = Encrypt(user.password)
         password_encrypt = encrypt.encrypt_data()
         return password_encrypt
-

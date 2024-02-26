@@ -10,7 +10,7 @@ class CreateUserUseCase:
         try:
             await self.__email_is_already_used(user)
             await self.__username_is_already_used(user)
-            await self.__user_repository.create_user(user)
+            await self.__user_repository.insert_user(user)
             return {
                 "message": "User created successfully",
                 "status_code": 200,
@@ -18,7 +18,7 @@ class CreateUserUseCase:
                 "success": True
             }
         except Exception as error:
-            raise error
+            raise ValueError(error)
 
     async def __email_is_already_used(self, user: User):
         find_email_user = await self.__user_repository.get_user_by_email(email=user.email)
