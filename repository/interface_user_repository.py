@@ -16,7 +16,7 @@ class InterfaceUserRepository(ABC):
         pass
 
     @abstractmethod
-    async def create_user(self, user: User):
+    async def insert_user(self, user: User):
         pass
 
     @abstractmethod
