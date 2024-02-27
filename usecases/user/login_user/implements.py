@@ -1,5 +1,5 @@
 from usecases.user.login_user.login_user_controller import LoginUserController
-from repository.user_repository import UserRepository
+from repository.user.user_repository import UserRepository
 from usecases.user.login_user.login_user_use_case import LoginUserUseCase
 from services.database.database import Database
 from dotenv import load_dotenv

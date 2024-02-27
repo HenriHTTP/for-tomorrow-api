@@ -1,6 +1,4 @@
-from pymongo.database import Database
-
-from repository.interface_user_repository import InterfaceUserRepository
+from repository.user.interface_user_repository import InterfaceUserRepository
 from entities.user import User
 
 

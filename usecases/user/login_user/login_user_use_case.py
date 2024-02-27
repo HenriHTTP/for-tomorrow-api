@@ -1,4 +1,4 @@
-from repository.user_repository import UserRepository
+from repository.user.user_repository import UserRepository
 from entities.user import User
 from services.encrypt.encrypt import Encrypt
 from services.token.token import Token
