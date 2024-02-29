@@ -3,19 +3,19 @@ from entities.user import User
 
 
 class UserRepository(InterfaceUserRepository):
-    def __init__(self, connection, database, collection):
+    def __init__(self, connection, database, collection) -> None:
         self.connection = connection
         self.database = database
         self.collection = collection
 
-    async def get_user_by_email(self, email: str):
+    async def get_user_by_email(self, email: str) -> list:
         user_email = self.collection.find({"email": email})
         email_already_exists = []
         for user in user_email:
             email_already_exists.append(user)
         return email_already_exists
 
-    async def get_user_by_username(self, username: str):
+    async def get_user_by_username(self, username: str) -> list:
         user_username = self.collection.find({"username": username})
         username_already_exists = []
         for user in user_username:
@@ -25,7 +25,7 @@ class UserRepository(InterfaceUserRepository):
     async def get_user_by_id(self, user_id: any):
         pass
 
-    async def insert_user(self, user: User):
+    async def insert_user(self, user: User) -> dict:
         document = {
             "email": user.email,
             "username": user.username,

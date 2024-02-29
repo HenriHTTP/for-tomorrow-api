@@ -4,11 +4,11 @@ from entities.user import User
 
 class InterfaceUserRepository(ABC):
     @abstractmethod
-    async def get_user_by_email(self, email: str):
+    async def get_user_by_email(self, email: str) -> list:
         pass
 
     @abstractmethod
-    async def get_user_by_username(self, username: str):
+    async def get_user_by_username(self, username: str) -> list:
         pass
 
     @abstractmethod
@@ -16,7 +16,7 @@ class InterfaceUserRepository(ABC):
         pass
 
     @abstractmethod
-    async def insert_user(self, user: User):
+    async def insert_user(self, user: User) -> dict:
         pass
 
     @abstractmethod
