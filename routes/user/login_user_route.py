@@ -8,11 +8,11 @@ login_user_app = Blueprint('Login_user_route', __name__)
 @login_user_app.route('/Login_user_route', methods=['POST'])
 async def login_user_route():
     http_request = User(
-        name=None,
-        lastname=None,
+        name=str(None),
+        lastname=str(None),
         email=request.json.get("email"),
         password=request.json.get("password"),
-        username=None
+        username=str(None)
     )
     http_response = await login_user_controller.login_user(http_request)
     try:
