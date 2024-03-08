@@ -9,4 +9,4 @@ class Job:
     localization: str
     job_type: str
     job_description: str
-    requirements: str
+    requirements: list[str]

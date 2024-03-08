@@ -6,7 +6,7 @@ class Email(InterfaceEmail):
     def __init__(self, email):
         self.__email = email
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         try:
             validate_email(self.__email)
             return True

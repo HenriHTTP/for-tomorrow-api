@@ -3,11 +3,11 @@ from abc import ABC, abstractmethod
 
 class InterfaceToken(ABC):
     @abstractmethod
-    def create_token(self):
+    def create_token(self) -> str:
         pass
 
     @abstractmethod
-    def get_token(self):
+    def get_token(self) -> str:
         pass
 
     @abstractmethod

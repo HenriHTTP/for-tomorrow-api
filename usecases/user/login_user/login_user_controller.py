@@ -8,12 +8,12 @@ class LoginUserController:
     def __init__(self, login_user_use_case: LoginUserUseCase):
         self.__login_user_use_case = login_user_use_case
 
-    async def login_user(self, user: User):
-        required_fields = ['email', 'password']
+    async def login_user(self, user: User) -> HttpResponse | ValueError:
+        required_fields: list[str] = ['email', 'password']
         try:
             Validation.validate_required_fields(required_fields, user)
-            login_user = await self.__login_user_use_case.execute(user)
-            http_response = HttpResponse(
+            login_user: dict = await self.__login_user_use_case.execute(user)
+            http_response: HttpResponse = HttpResponse(
                 success=login_user["success"],
                 message=login_user["message"],
                 error=login_user["error"],

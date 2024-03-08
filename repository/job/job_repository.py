@@ -9,7 +9,7 @@ class JobRepository(InterfaceJobRepository):
         self.collection = collection
 
     async def insert_job(self, job: Job) -> dict:
-        document = {
+        document: dict = {
             "job_title": job.job_title,
             "company": job.company,
             "about_company": job.about_company,

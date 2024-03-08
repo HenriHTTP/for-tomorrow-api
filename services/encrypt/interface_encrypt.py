@@ -6,8 +6,8 @@ class InterfaceEncrypt(ABC):
     def encrypt_data(self):
         pass
 
-    def decrypt_data(self, data: str):
+    def decrypt_data(self, data: str) -> str:
         pass
 
-    def validate_data(self, data: str):
+    def validate_data(self, data: str) -> bool:
         pass

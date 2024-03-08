@@ -9,8 +9,8 @@ class CreateJobController:
     def __init__(self, create_job_use_case: CreateJobUseCase):
         self.__create_job_use_case = create_job_use_case
 
-    async def create_job(self, http_request: Job):
-        required_fields = [
+    async def create_job(self, http_request: Job) -> HttpResponse | ValueError:
+        required_fields : list[str] = [
             'job_title',
             'company',
             'about_company',
@@ -21,7 +21,7 @@ class CreateJobController:
         ]
         try:
             Validation.validate_required_fields(required_fields, http_request)
-            job = Job(
+            job: Job = Job(
                 job_title=http_request.job_title,
                 company=http_request.company,
                 about_company=http_request.about_company,
@@ -30,8 +30,8 @@ class CreateJobController:
                 job_description=http_request.job_description,
                 requirements=http_request.requirements
             )
-            create_job = await self.__create_job_use_case.execute(job)
-            http_response = HttpResponse(
+            create_job: dict = await self.__create_job_use_case.execute(job)
+            http_response: HttpResponse = HttpResponse(
                 success=create_job["success"],
                 message=create_job["message"],
                 error=create_job["error"],

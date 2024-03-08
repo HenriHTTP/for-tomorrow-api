@@ -19,7 +19,7 @@ class Token(InterfaceToken):
         self.__username = username
         self.__secret = secret_key
 
-    def create_token(self):
+    def create_token(self) -> str:
         self.__payload = {
             "id": self.__id,
             "username": self.__username,
@@ -28,7 +28,7 @@ class Token(InterfaceToken):
         self.__token = jwt.encode(self.__payload, self.__secret, algorithm='HS256')
         return self.__token
 
-    def get_token(self):
+    def get_token(self) -> str:
         return self.__token
 
     def validate_token(self, token):

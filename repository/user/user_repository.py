@@ -10,14 +10,14 @@ class UserRepository(InterfaceUserRepository):
 
     async def get_user_by_email(self, email: str) -> list:
         user_email = self.collection.find({"email": email})
-        email_already_exists = []
+        email_already_exists: list = []
         for user in user_email:
             email_already_exists.append(user)
         return email_already_exists
 
     async def get_user_by_username(self, username: str) -> list:
         user_username = self.collection.find({"username": username})
-        username_already_exists = []
+        username_already_exists: list = []
         for user in user_username:
             username_already_exists.append(user)
         return username_already_exists
@@ -26,7 +26,7 @@ class UserRepository(InterfaceUserRepository):
         pass
 
     async def insert_user(self, user: User) -> dict:
-        document = {
+        document: dict = {
             "email": user.email,
             "username": user.username,
             "password": user.password,

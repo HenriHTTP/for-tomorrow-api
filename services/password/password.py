@@ -8,7 +8,7 @@ class Password(InterfacePassword):
         self.validator = PasswordValidator()
 
     def is_valid_password(self):
-        password_valid_shape = (
+        password_valid_shape: PasswordValidator = (
             self.validator
             .min(8)
             .max(100)
@@ -21,5 +21,5 @@ class Password(InterfacePassword):
             .has()
             .no()
             .spaces())
-        is_valid = password_valid_shape.validate(self.password)
+        is_valid: bool = password_valid_shape.validate(self.password)
         return is_valid

@@ -4,7 +4,7 @@ from entities.job import Job
 
 class InterfaceJobRepository(ABC):
     @abstractmethod
-    async def insert_job(self, job: Job):
+    async def insert_job(self, job: Job) -> dict:
         pass
 
     @abstractmethod
